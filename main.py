@@ -1,50 +1,38 @@
-class Queue:
+class Node:
+    def __init__(self, value):
+        self.value = value 
+        self.next_node = None
+
+class LinkedList:
     def __init__(self):
-        self.itens = []
+        self.head = None
 
-    def enqueue(self, item):
-        self.itens.append(item)
+    def push(self, value):
+        #insertion in linkedlist
+        if self.head:
+            pointer = self.head
+            while pointer.next_node :
+                pointer = pointer.next_node
+            node = Node(value)
+            pointer.next_node = node
+        else:
+            #first insertion in linkedlist
+            self.head = Node(value)
 
-    def dequeue(self):
-        if not self.is_empty():
-            return self.itens.pop(0) 
-        return 'Fila vazia'
+    def print_list(self):
+        if self.head:
+            pointer = self.head
+            while pointer.next_node:
+                print(pointer.value,end=" ! ")
+                pointer = pointer.next_node
+        else:
+            print('lista vazia')
 
-    def peek(self):
-        if not self.is_empty():
-            return self.itens[-1]
-        return 'Fila vazia'
+linkedList = LinkedList()
+linkedList.push(2)
+linkedList.print_list()
 
-    def is_empty(self):
-        return len(self.itens) == 0
+linkedList.push(3)
+linkedList.push(5)
+linkedList.print_list()
 
-def printing(documents):
-    queue = Queue()
-
-    priorities_values = {'Low': 5, 'Medium': 3, 'High': 1}
-
-    print('Receiving documents...\n')
-
-    for document in documents:
-        queue.enqueue(document)
-
-    while not queue.is_empty() :
-        doc = queue.dequeue()
-
-        for i in range(priorities_values[doc['priority']], 0, -1):
-            print(f'printing in {i}')
-        print(f"{doc['name']} printed\n")
-
-    print("Printer's Queue is Empty")
-
-documents = [
-    {'name': 'Annual Sales Report 2024','priority': 'Medium'},
-    {'name': 'Payroll 25/01', 'priority':'High'}, 
-    {'name': 'New Vendor Presentation', 'priority': 'Low'},
-    {'name': 'Internship Program Presentation', 'priority': 'Medium'},
-    {'name': 'Data Traffic in Marketplace 2024 Q4','priority': 'Medium'},
-    {'name': 'Stock Flutuation','priority': 'Medium'},
-    {'name': 'Vacation Document', 'priority': 'High'}
-]
-
-printing(documents)
